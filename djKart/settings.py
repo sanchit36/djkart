@@ -13,7 +13,7 @@ SECRET_KEY = 'lukroe4d@%zy4kq17f^y!4uq57)3fs^vh61b072=#ydnzbjj*p'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['djkart.herokuapp.com', '127.0.0.1:8000']
+ALLOWED_HOSTS = ['djkart.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
