@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Checkout | 
+{% endblock title %}
+
+
+{% block content %}
+
+  <!--Grid row-->
+  <div class="row">
+    <!--Grid column-->
+    <div class="col-md-6 mb-4">
+
+      <!--Card-->
+      <div class="card">
+
+        <!--Card content-->
+        <form id="form" method="post" class="card-body">
+          {% csrf_token %}
+        {% if not user.is_authenticated %}
+          <div id="user-info" class="m-0 p-0">
+            <div class="row">
+              <div class="col-md-6 mb-2">
+                <div class="md-form">
+                  {{ customer_form.first_name }}
+                  {{ customer_form.first_name.label_tag }}
+                </div>
+              </div>
+              <div class="col-md-6 mb-2">
+                <div class="md-form">
+                  {{ customer_form.last_name }}
+                  {{ customer_form.last_name.label_tag }}
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-2">
+                <!--email-->
+                <div class="md-form mb-5">
+                  {{ customer_form.email }}
+                  {{ customer_form.email.label_tag }}
+                </div>
+              </div>
+              <div class="col-md-6 mb-2">
+                <!-- phone -->
+                <div class="md-form mb-5">
+                  {{ customer_form.phone_number }}
+                  {{ customer_form.phone_number.label_tag }}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+        <div id="shpping-info">
+          <h4>Sipping Address</h4>
+          <div class="md-form mb-5">
+            {{ form_s.address_s }}
+            <label for="{{ form_s.address_s.id_for_label }}">Address</label>
+          </div>
+        
+          <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <label for="{{ form_s.city_s.id_for_label }}">City</label>
+                {{ form_s.city_s }}
+              </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+              <label for="{{ form_s.state_s.id_for_label }}">State</label>
+              {{ form_s.state_s }}
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+              <label for="{{ form_s.zip_code_s.id_for_label }}">Zip Code</label>
+              {{ form_s.zip_code_s }}
+            </div>
+          </div>
+        </div>
+        
+        <hr>
+
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="same-address">
+          <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+        </div>
+        
+        <div id="billing-info">
+          <hr>
+          <h4>Billing Address</h4>
+          <div class="md-form mb-5">
+              {{ form_b.address_b }}
+              <label for="{{ form_b.address_b.id_for_label }}">Address</label>
+          </div>
+          <div class="row">
+              <div class="col-lg-4 col-md-6 mb-4">
+                <label for="{{ form_b.city_b.id_for_label }}">City</label>
+                {{ form_b.city_b }}
+              </div>
+              <div class="col-lg-4 col-md-6 mb-4">
+                <label for="{{ form_b.state_b.id_for_label }}">State</label>
+                {{ form_b.state_b }}
+              </div>
+              <div class="col-lg-4 col-md-6 mb-4">
+                <label for="{{ form_b.zip_code_b.id_for_label }}">Zip Code</label>
+                {{ form_b.zip_code_b }}
+              </div>
+          </div>
+        </div>
+
+          <hr class="mb-4">
+          <button id="form-btn" class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+        </form>
+      </div>
+    </div>
+    <!--Grid column-->
+
+    <!--Grid column-->
+    <div class="col-md-6 mb-4">
+
+      <!-- Heading -->
+      <h4 class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-muted">Your cart</span>
+        <span class="badge badge-secondary badge-pill">{{ order.get_cart_items }}</span>
+      </h4>
+
+      <!-- Cart -->
+      <ul class="list-group mb-3 z-depth-1">
+        {% for item in items %}
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            <h6 class="my-0">{{ item.product.title }}</h6>
+            <small class="text-muted">X {{ item.quantity }}</small>
+          </div>
+          <span class="text-muted">{{ curr }}{{ item.get_total }}</span>
+        </li>
+        {% endfor %}
+
+        <!--<li class="list-group-item d-flex justify-content-between bg-light">
+          <div class="text-success">
+            <h6 class="my-0">Promo code</h6>
+            <small>EXAMPLECODE</small>
+          </div>
+          <span class="text-success">-{{ curr }}5</span>
+        </li> -->
+        <li class="list-group-item d-flex justify-content-between">
+          <span>Total ({{ curr.code }})</span>
+          <strong>{{ curr }}{{ order.get_cart_total }}</strong>
+        </li>
+      </ul>
+      <!-- Cart -->
+
+      <!-- Promo code 
+      <form class="card p-2">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Promo code" aria-label="Recipient's username" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-secondary btn-md waves-effect m-0" type="button">Redeem</button>
+          </div>
+        </div>
+      </form>
+        Promo code -->
+      
+      <!--Make payment-->
+
+      <div id="payment-info" class="card hidden">
+        <div class="card-body">
+          <small>Paypal Options</small>
+          <button id="make-payment" class="btn btn-primary">make payment</button>
+          {% comment %} <div id="paypal-button-container"></div> {% endcomment %}
+        </div>
+      </div>
+
+
+    </div>
+    <!--Grid column-->
+
+  </div>
+  <!--Grid row-->
+
+{% endblock content %}
+
+{% block script %}
+  <script>
+    const total = "{{ order.get_cart_total }}";
+  </script>
+  <script src="{% static 'js/checkout.js' %}"></script>
+  {% comment %} <script src="https://www.paypal.com/sdk/js?client-id=Af9sjVhN0IBhOGH1xVZD2O90XVSe-flJ-qcDH8BaVDb1m_rNhlRHCmmKV5EuAU_uXaNhmt02xZliZmwv&currency=INR"></script> {% endcomment %}
+  {% comment %} <script>
+      // Render the PayPal button into #paypal-button-container
+      paypal.Buttons({
+          style: {
+            color: 'blue',
+          },
+          // Set up the transaction
+          createOrder: function(data, actions) {
+              return actions.order.create({
+                  purchase_units: [{
+                      amount: {
+                          value: parseFloat(total).toFixed(2)
+                      }
+                  }]
+              });
+          },
+
+          // Finalize the transaction
+          onApprove: function(data, actions) {
+              return actions.order.capture().then(function(details) {
+                  submitFormData();
+              });
+          }
+      }).render('#paypal-button-container');
+  </script> {% endcomment %}
+{% endblock script %}

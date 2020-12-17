@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Store | 
+{% endblock title %}
+
+
+{% block content %}
+
+{% include 'components/category_navbar.html' %}
+
+{% if category %}
+<h2 class="font-weight-bold text-dark text-center mb-4">{{ category.name|title }}</h2>
+{% endif %}
+
+
+<section class="mb-4">
+
+  <div class="row wow fadeIn">
+
+    {% for product in products %}
+    <!--Grid column-->
+    <div class="col-lg-3 col-md-6 mb-4">
+      {% include 'components/product.html' %}
+    </div>
+    <!--Grid column-->
+    {% endfor %}
+
+  </div>
+
+
+  {% include 'components/pagination.html' %}
+
+</section>
+
+
+
+{% endblock content %}

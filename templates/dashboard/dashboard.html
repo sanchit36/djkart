@@ -1,0 +1,81 @@
+{% extends "dashboard/base.html" %}
+
+{% block content %}
+  <div class="container-fluid mt-5">
+      <div class="row wow fadeIn">
+        <div class="col-md-8 mb-4">
+          <div class="card">
+            some chart
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-header">Order this month</div>
+            <div class="card-body">
+              <div class="row text-center">
+                <div class="col-6">
+                  <h5>Pending</h5>
+                  <h1 class="text-danger">{{pending}}</h1>
+                </div>
+                <div class="col-6">
+                  <h5>Completed</h5>
+                  <h1 class="text-success">{{complete}}</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-12 mb-4">
+
+          <!--Card-->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="m-0 p-0">Pending Orders</h3>
+            </div>
+            <!--Card content-->
+            <div class="card-body">
+              <!-- Table  -->
+              <table class="table table-hover">
+                <!-- Table head -->
+                <thead class="blue-grey lighten-5">
+                  <tr>
+                    <th>Id</th>
+                    <th>Customer</th>
+                    <th>Ref Id</th>
+                    <th>Ordered Date</th>
+                    <th>Shipping Address</th>
+                    <th>Billing Address</th>
+                  </tr>
+                </thead>
+                <!-- Table head -->
+                <!-- Table body -->
+                <tbody>
+                  {% for order in orders %}
+                    <tr>
+                      <th scope="row">{{ order.id }}</th>
+                      <td>{{ order.customer.email }}</td>
+                      <td><a href="{% url 'order_summary' order.ref_id %}"  class="text-primary">{{ order.ref_id }}</a></td>
+                      <td>{{ order.ordered_date }}</td>
+                      <td>{{ order.shipping_address }}</td>
+                      <td>{{ order.billing_address }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+                <!-- Table body -->
+              </table>
+              <!-- Table  -->
+            </div>
+          </div>
+          <!--/.Card-->
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </div>
+{% endblock content %}

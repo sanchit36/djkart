@@ -1,0 +1,39 @@
+<!--Card-->
+<div class="card">
+  <!--Card image-->
+  <div class="view overlay">
+    <img src="{{ product.imageURL }}" class="card-img-top" alt="" />
+    <a href="{{ product.get_absolute_url }}">
+      <div class="mask rgba-white-slight"></div>
+    </a>
+  </div>
+  <!--Card image-->
+
+  <!--Card content-->
+  <div class="card-body">
+    <!--Category & Title-->
+    <a href="{% url 'category_detail' product.category.slug %}" class="grey-text">
+      <p class="text-center m-0 mb-1">{{ product.category }}</p>
+    </a>
+    <h6>
+      <strong>
+        <a href="{{ product.get_absolute_url }}" class="dark-grey-text">{{ product.title }}</a>
+      </strong>
+    </h6>
+    <h5 class="font-weight-bold blue-text mb-0">
+      {% if product.discount_price %}
+      <del><small>{{ curr }}{{ product.price }}</small></del>
+      <strong>{{ curr }}{{ product.discount_price }}</strong>
+      {% else %}
+      <strong>{{ curr }}{{ product.price }}</strong>
+      {% endif %}
+    </h5>
+    <hr />
+    <!-- Add to Cart -->
+    <button data-productid={{ product.id }} data-action="add" class="btn btn-secondary m-0 p-2 update-btn">Add to cart
+      <i class="fas fa-shopping-cart ml-1"></i>
+    </button>
+  </div>
+  <!--Card content-->
+</div>
+<!--Card-->

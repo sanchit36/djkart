@@ -1,0 +1,98 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+  <div class="row wow fadeIn">
+    <div class="col-md-12 mb-4">
+      <div class="card bg-primary text-white">
+        <div class="card-header text-center">
+          <h3 class="p-0 m-0">Order Summary</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row wow fadeIn">
+    <div class="col-md-12 mb-4 mx-auto">
+      <div class="card">
+        <div class="card-body">
+          <table class="table table-bordered">
+            <thead class="blue-grey lighten-5">
+              <tr>
+                <th>#</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in items %}
+              <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td><a class="text-primary" href="{{ item.product.get_absolute_url }}" target="_blank">{{ item.product.title }}</a></td>
+                <td>{{ curr }}{{ item.product.get_price }}</td>
+                <td>x{{ item.quantity }}</td>
+                <td>{{ curr }}{{ item.get_total }}</td>
+              </tr>
+              {% endfor %}
+              <tr>
+                <th colspan="4">TOTAL</th>
+                <th>{{ curr }}{{order.get_cart_total}}</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row wow fadeIn">
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-header">Customer detail</div>
+        <div class="card-body">
+          <p><strong>Name: </strong>{{ order.customer.get_full_name }}</p>
+          <p><strong>Email: </strong>{{ order.customer.email }}</p>
+          <p><strong>Phone Number: </strong>{{ order.customer.phone_number }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-header">Order detail</div>
+        <div class="card-body">
+          <p><strong>Ref Id: </strong>{{ order.ref_id }}</p>
+          <p><strong>ordered_date: </strong>{{ order.ordered_date }}</p>
+          <p><strong>Being Delivered: </strong>{{ order.being_delivered }}</p>
+          <p><strong>Received: </strong>{{ order.received }}</p>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <div class="row wow fadeIn">
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-header">Shipping detail</div>
+        <div class="card-body">
+          <p><strong>Address: </strong>{{ order.shipping_address.address_s }}</p>
+          <p><strong>State: </strong>{{ order.shipping_address.state_s }}</p>
+          <p><strong>City: </strong>{{ order.shipping_address.city_s }}</p>
+          <p><strong>Zip Code: </strong>{{ order.shipping_address.zip_code_s }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-header">Billing detail</div>
+        <div class="card-body">
+          <p><strong>Address: </strong>{{ order.billing_address.address_b }}</p>
+          <p><strong>State: </strong>{{ order.billing_address.state_b }}</p>
+          <p><strong>City: </strong>{{ order.billing_address.city_b }}</p>
+          <p><strong>Zip Code: </strong>{{ order.billing_address.zip_code_b }}</p>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+{% endblock content %}

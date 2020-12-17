@@ -1,0 +1,54 @@
+{% extends "dashboard/base.html" %}
+
+{% block content %}
+    <div class="container-fluid mt-5">
+      
+      <div class="row wow fadeIn">
+        <div class="col-md-8 mb-4 mx-auto">
+          <div class="card mb-4">
+            <div class="card-header text-center bg-primary text-white">
+              <h2 class="m-0 p-0">All product</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row wow fadeIn">
+        <div class="col-md-12 mb-4 mx-auto">
+        <div class="card">
+          <div class="card-body">
+            <table class="table table-bordered">
+              <thead class="blue-grey lighten-5">
+                <tr>
+                  <th>#</th>
+                  <th>Product Title</th>
+                  <th>Price</th>
+                  <th>Discout Price</th>
+                  <th>Category</th>
+                  <th>Tags</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for product in products %}
+                <tr>
+                  <th scope="row">{{ forloop.counter }}</th>
+                  <td><a class="text-primary" href="{{ product.get_absolute_url }}" target="_blank">{{ product.title }}</a></td>
+                  <td>{{ curr }}{{ product.price }}</td>
+                  <td>{% if product.discount_price  %}{{ curr }}{{ product.discount_price }}{% else %}-{% endif %}</td>
+                  <td>{{ product.category.name }}</td>
+                  <td>{% for tag in product.tags.all %}{{tag}}, {% endfor %}</td>
+                  <td>
+                    <a href="http://127.0.0.1:8000/admin/product/product/{{product.id}}/change/" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
+                    <a href="http://127.0.0.1:8000/admin/product/product/{{product.id}}/delete/" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+{% endblock content %}
