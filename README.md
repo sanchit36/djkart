@@ -4,9 +4,9 @@ Djkart is a web app build with Python Django webframework and JavaScript. Its a 
 
 ## Features 
 
-- Checkout a guest user
-- Authentication
-- Dashboard which only admin can access
+- Checkout as guest user
+- Full user Authentication and Authorization
+- Custom Admin Dashboard
 - CRUD functionality
 
 ## Technology Used
