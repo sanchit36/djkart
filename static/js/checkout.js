@@ -104,5 +104,3 @@ const submitFormData = (e) => {
     })
     .catch((err) => console.log(err));
 };
-
-makePayment.addEventListener("click", submitFormData);

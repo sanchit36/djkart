@@ -135,13 +135,6 @@ Checkout |
         </li>
         {% endfor %}
 
-        <!--<li class="list-group-item d-flex justify-content-between bg-light">
-          <div class="text-success">
-            <h6 class="my-0">Promo code</h6>
-            <small>EXAMPLECODE</small>
-          </div>
-          <span class="text-success">-{{ curr }}5</span>
-        </li> -->
         <li class="list-group-item d-flex justify-content-between">
           <span>Total ({{ curr.code }})</span>
           <strong>{{ curr }}{{ order.get_cart_total }}</strong>
@@ -149,24 +142,12 @@ Checkout |
       </ul>
       <!-- Cart -->
 
-      <!-- Promo code 
-      <form class="card p-2">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Promo code" aria-label="Recipient's username" aria-describedby="basic-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-secondary btn-md waves-effect m-0" type="button">Redeem</button>
-          </div>
-        </div>
-      </form>
-        Promo code -->
-      
       <!--Make payment-->
 
       <div id="payment-info" class="card hidden">
         <div class="card-body">
           <small>Paypal Options</small>
-          <button id="make-payment" class="btn btn-primary">make payment</button>
-          {% comment %} <div id="paypal-button-container"></div> {% endcomment %}
+          <div id="paypal-button-container"></div>
         </div>
       </div>
 
@@ -184,8 +165,8 @@ Checkout |
     const total = "{{ order.get_cart_total }}";
   </script>
   <script src="{% static 'js/checkout.js' %}"></script>
-  {% comment %} <script src="https://www.paypal.com/sdk/js?client-id=Af9sjVhN0IBhOGH1xVZD2O90XVSe-flJ-qcDH8BaVDb1m_rNhlRHCmmKV5EuAU_uXaNhmt02xZliZmwv&currency=INR"></script> {% endcomment %}
-  {% comment %} <script>
+  <script src="https://www.paypal.com/sdk/js?client-id=Af9sjVhN0IBhOGH1xVZD2O90XVSe-flJ-qcDH8BaVDb1m_rNhlRHCmmKV5EuAU_uXaNhmt02xZliZmwv&currency=INR"></script>
+  <script>
       // Render the PayPal button into #paypal-button-container
       paypal.Buttons({
           style: {
@@ -209,5 +190,5 @@ Checkout |
               });
           }
       }).render('#paypal-button-container');
-  </script> {% endcomment %}
+  </script>
 {% endblock script %}
