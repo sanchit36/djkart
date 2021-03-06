@@ -3,6 +3,7 @@ from django.contrib import messages
 from datetime import datetime
 
 from .decorators import is_admin
+from .forms import OrderDeliveryForm
 from product.forms import ProductForm, CategoryForm, TagForm
 from product.models import Product, Category, Tag
 from order.models import Order
@@ -30,9 +31,9 @@ def dashboard(request):
         ordered=True, being_delivered=False).order_by('ordered_date')
     month = datetime.now().month
     order_pending = Order.objects.filter(
-        ordered=True, being_delivered=False, ordered_date__month=month)
+        ordered=True, being_delivered=False)
     order_complete = Order.objects.filter(
-        ordered=True, being_delivered=True, ordered_date__month=month)
+        ordered=True, being_delivered=True)
     pending = order_pending.count()
     complete = order_complete.count()
     context = {'orders': orders, 'pending': pending, 'complete': complete}
@@ -43,7 +44,11 @@ def dashboard(request):
 def order_summary(request, ref_id):
     order = get_object_or_404(Order, ref_id=ref_id)
     items = order.orderitem_set.all()
-    context = {'order': order, 'items': items}
+    form = OrderDeliveryForm(request.POST or None, instance=order)
+    if form.is_valid():
+        form.save()
+        return redirect('dashboard')
+    context = {'order': order, 'items': items, 'form': form}
     return render(request, 'dashboard/order_summary.html', context)
 
 
